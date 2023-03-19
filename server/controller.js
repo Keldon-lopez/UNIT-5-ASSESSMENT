@@ -226,6 +226,11 @@ module.exports = {
             ('Yemen'),
             ('Zambia'),
             ('Zimbabwe');
+
+            insert into cities (name, rating, country_id) 
+            values ('First', 1, 1),
+            ('Second', 2, 1),
+            ('Third', 3, 1);
         `).then(() => {
             console.log('DB seeded!')
             res.sendStatus(200)
@@ -256,7 +261,8 @@ module.exports = {
         sequelize.query(`select city_id, cities.name AS city, rating, countries.name AS country
         from cities
             join countries
-            on countries.country_id = cities.country_id;
+            on countries.country_id = cities.country_id
+        order by rating desc;
         `).then((dbRes) => {
             res.status(200).send(dbRes[0])
          })
